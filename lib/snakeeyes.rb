@@ -32,6 +32,8 @@ class SnakeEyes
         pass, output = run_tests
         report_tests(pass, output)
         @run_count += 1
+      else
+        heartbeat
       end
 
       sleepy_time
@@ -95,6 +97,18 @@ class SnakeEyes
     new_master != current_master
   end
 
+  def heartbeat
+    debug "heartbeating"
+    config = hawk_config
+    data = {
+        "agent"       => config[:agent],
+        "description" => config[:description],
+        "url"         => config[:url],
+        "heartbeat"   => '1',
+      }
+    post_update(data.to_json) # POST JSON TO URL
+  end
+
   def sleepy_time
     debug
     debug "OK, sleeping for a while (#{@sleep})..."
@@ -124,11 +138,11 @@ class SnakeEyes
     data = {
         "agent"       => config[:agent],
         "description" => config[:description],
+        "url"         => config[:url],
         "branch"      => "master",
         "author"      => author,
         "sha"         => sha,
         "status"      => status,
-        "url"         => config[:url],
         "message"     => message,
         "output"      => output
       }
