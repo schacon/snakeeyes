@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
+
+require 'snakeeyes'
+
+SnakeEyes.new(File.expand_path(ARGV[0])).start
+
