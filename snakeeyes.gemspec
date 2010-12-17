@@ -2,7 +2,7 @@ $LOAD_PATH.unshift 'lib'
 
 Gem::Specification.new do |s|
   s.name              = "snakeeyes"
-  s.version           = "0.0.1"
+  s.version           = "0.0.2"
   s.date              = Time.now.strftime('%Y-%m-%d')
   s.summary           = "snakeeyes reports to general hawk. hes the coolest cijoe"
   s.homepage          = "http://github.com/schacon/snakeeyes"
@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.executables       = %w( snakeeyes )
 
-   s.description       = <<desc
+  s.description       = <<desc
   snakeeyes is a polling, command line based cijoe replacement that will
   report to generalhawk.
 desc

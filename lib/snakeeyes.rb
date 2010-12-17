@@ -12,7 +12,6 @@ class SnakeEyes
   def initialize(path)
     @path = path
     @sleep = 5 * 60 # 5 minutes
-    @sleep = 5
     @debug_level = 99
     @run_count = 0
   end
