@@ -2,9 +2,9 @@ $LOAD_PATH.unshift 'lib'
 
 Gem::Specification.new do |s|
   s.name              = "snakeeyes"
-  s.version           = "0.0.2"
+  s.version           = "0.0.3"
   s.date              = Time.now.strftime('%Y-%m-%d')
-  s.summary           = "snakeeyes reports to general hawk. hes the coolest cijoe"
+  s.summary           = "snakeeyes reports to general hawk. he's the coolest cijoe"
   s.homepage          = "http://github.com/schacon/snakeeyes"
   s.email             = "schacon@gmail.com"
   s.authors           = [ "Scott Chacon" ]
@@ -15,6 +15,9 @@ Gem::Specification.new do |s|
   s.files            += Dir.glob("bin/**/*")
 
   s.executables       = %w( snakeeyes )
+
+  s.add_runtime_dependency     'json'
+  s.add_runtime_dependency     'popen4'
 
   s.description       = <<desc
   snakeeyes is a polling, command line based cijoe replacement that will

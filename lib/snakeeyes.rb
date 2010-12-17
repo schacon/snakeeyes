@@ -7,7 +7,7 @@ require 'pp'
 
 class SnakeEyes
 
-  attr_accessor :path, :sleep, :debug_level, :run_count, :master, :omaster
+  attr_accessor :path, :sleep, :debug_level, :run_count, :master, :omaster, :config
 
   def initialize(path)
     @path = path
@@ -31,10 +31,10 @@ class SnakeEyes
         reset_to_newest_commit
         pass, output = run_tests
         report_tests(pass, output)
+        @run_count += 1
       end
 
       sleepy_time
-      @run_count += 1
     end
   end
 
