@@ -18,6 +18,7 @@ class SnakeEyes
 
   def start
     Dir.chdir(@path) do
+      custom_sleep
       debug "Starting loop"
       main_loop
     end
@@ -25,17 +26,19 @@ class SnakeEyes
 
   def main_loop
     while true
-      debug "Start #{@path}"
-
-      if has_new_commits || first_run
-        reset_to_newest_commit
-        pass, output = run_tests
-        report_tests(pass, output)
-        @run_count += 1
-      else
-        heartbeat
+      begin
+        debug "Start #{@path}"
+        if has_new_commits || first_run
+          reset_to_newest_commit
+          pass, output = run_tests
+          report_tests(pass, output)
+          @run_count += 1
+        else
+          heartbeat
+        end
+      rescue StandardError => e
+        puts "!!! There was some issue or another: #{e.message} !!!"
       end
-
       sleepy_time
     end
   end
@@ -44,10 +47,19 @@ class SnakeEyes
     @run_count == 0
   end
 
+  def custom_sleep
+    timer = git("config cijoe.sleep")
+    if timer.size > 0
+      debug "SETTING CUSTOM TIMER: #{timer}"
+      @sleep = timer.to_i
+    end
+  end
+
   # if something is new, reset to it
   def reset_to_newest_commit
     debug "reset to newest commit (#{@omaster})"
     git("reset --hard #{@omaster}")
+    @master = @omaster
   end
 
   def run_tests
@@ -150,7 +162,6 @@ class SnakeEyes
   end
 
   def hawk_config
-    return @config if @config
     c = {}
     config = git('config --list')
     config.split("\n").each do |line| 

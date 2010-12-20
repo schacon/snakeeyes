@@ -2,7 +2,7 @@ $LOAD_PATH.unshift 'lib'
 
 Gem::Specification.new do |s|
   s.name              = "snakeeyes"
-  s.version           = "0.0.3"
+  s.version           = "0.0.4"
   s.date              = Time.now.strftime('%Y-%m-%d')
   s.summary           = "snakeeyes reports to general hawk. he's the coolest cijoe"
   s.homepage          = "http://github.com/schacon/snakeeyes"
