@@ -68,6 +68,7 @@ class SnakeEyes
     debug "running '#{command}'...", 1
     output = ''
     status = POpen4::popen4(command) do |stdout, stderr, stdin, pid|
+      stdin.close
       out = stdout.read
       err = stderr.read
       output = out + err
