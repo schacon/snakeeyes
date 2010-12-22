@@ -1,7 +1,6 @@
 require 'rubygems'
 require "json"
 require "uri"
-require 'popen4'
 require "net/http"
 require 'pp'
 
@@ -66,15 +65,9 @@ class SnakeEyes
     debug "run tests"
     command = git("config cijoe.runner")
     debug "running '#{command}'...", 1
-    output = ''
-    status = POpen4::popen4(command) do |stdout, stderr, stdin, pid|
-      stdin.close
-      out = stdout.read
-      err = stderr.read
-      output = out + err
-    end
-    debug "test exitstatus : #{ status.exitstatus }", 2
-    [(status.exitstatus == 0), output]
+    output = `#{command}`
+    debug "test exitstatus : #{ $?.exitstatus }", 2
+    [($?.exitstatus == 0), output]
   end
 
   # report the output to general hawk
@@ -130,11 +123,7 @@ class SnakeEyes
   end
 
   def git(command)
-    out = ''
-    status = POpen4::popen4("git #{command}") do |stdout, stderr, stdin, pid|
-      out = stdout.read
-    end
-    out.chomp
+    `git #{command}`.chomp
   end
 
   def debug(message = "", level = 0)
